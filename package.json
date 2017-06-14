@@ -26,30 +26,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rot1024/electron-webpack-react-boilerplate.git"
+    "url": "https://github.com/saadbinsaeed/bluerain-client-electron"
   },
-  "author": "rot1024",
+  "author": "BlueEast",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/rot1024/electron-webpack-react-boilerplate/issues"
-  },
-  "homepage": "https://github.com/rot1024/electron-webpack-react-boilerplate#readme",
-  "engines": {
-    "node": ">=6"
-  },
-  "ava": {
-    "babel": "inherit",
-    "files": [
-      "app/**/*.test.js"
-    ],
-    "require": [
-      "babel-register",
-      "./app/test/setup"
-    ],
-    "source": [
-      "app/**/*.js"
-    ]
-  },
   "browserslist": [
     "Electron 1.6"
   ],
