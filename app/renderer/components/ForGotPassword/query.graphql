@@ -1,0 +1,11 @@
+query VerifyAccessToken($filter: JSON){
+  CustomAccessToken {
+    CustomAccessTokenFind(filter: $filter) {
+      edges {
+        node {
+          userId
+        }
+      }
+    }
+  }
+}

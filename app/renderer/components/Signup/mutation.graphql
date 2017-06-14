@@ -1,0 +1,12 @@
+mutation SignupMutation ($data:JSON) {
+  Account {
+    AccountCreate (input:{data: $data}){
+      obj{
+        id
+        username
+        email
+      }
+      clientMutationId
+    }
+  }
+}

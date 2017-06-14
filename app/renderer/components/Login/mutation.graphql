@@ -1,0 +1,7 @@
+mutation LoginMutation ($credentials:JSON){
+  Account{
+    AccountLogin (input:{credentials: $credentials}){
+      obj
+    }
+  }
+}

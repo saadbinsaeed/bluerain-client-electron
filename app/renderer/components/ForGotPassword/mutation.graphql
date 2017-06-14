@@ -1,0 +1,14 @@
+mutation userUpdate ($where: JSON, $data: JSON){
+  Account {
+    AccountUpsertWithWhere (input :
+      {
+        where : $where,
+        data: $data
+    })
+    {
+      obj {
+         username
+      }
+    }
+  }
+}
