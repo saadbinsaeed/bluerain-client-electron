@@ -3,7 +3,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const HtmlPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
 const BabiliPlugin = require("babili-webpack-plugin");
 
@@ -16,23 +16,16 @@ module.exports = ({ platform, prod } = {}) => {
   const electronRenderer = !electronMain;
 
   const cssLoaders = [
-    {
-      loader: "css-loader",
-      options: {
-        camelCase: true,
-        importLoaders: 1,
-        localIdentName: "[local]_[hash:base64:5]",
-        modules: true,
-        sourceMap: !prod
-      }
-    },
-    "postcss-loader"
+    "css-loader", "sass-loader"
   ];
 
   return {
     devServer: {
       hot: true,
-      port: PORT
+      port: PORT,
+      historyApiFallback: true,
+      stats: 'errors-only',
+      contentBase: path.join(__dirname, "/resources/"),
     },
     devtool: prod ? undefined : "inline-source-map",
     entry: electronMain ? [
@@ -46,9 +39,10 @@ module.exports = ({ platform, prod } = {}) => {
       "./app/renderer"
     ],
     externals: electronMain && !prod ? [
-      "source-map-support"
+      "source-map-support",
     ] : [],
     module: {
+      exprContextCritical: false,
       rules: [
         {
           test: /\.js($|\?)/,
@@ -58,24 +52,36 @@ module.exports = ({ platform, prod } = {}) => {
           ],
           exclude: /node_modules/
         },
+        { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ },
+        // {
+        //   test: /\.css($|\?)/,
+        //   use: prod ? extractCSS.extract({
+        //     fallback: "style-loader",
+        //     use: cssLoaders
+        //   }) : ["style-loader", ...cssLoaders],
+        //   exclude: /node_modules/
+        // },
         {
-          test: /\.css($|\?)/,
-          use: prod ? extractCSS.extract({
-            fallback: "style-loader",
-            use: cssLoaders
-          }) : ["style-loader", ...cssLoaders],
-          exclude: /node_modules/
+          test: /\.(css|scss)$/,
+          loaders: ['style-loader', 'css-loader', 'sass-loader']
         },
-        {
-          test: /\.node$/,
-          use: 'node-loader'
-        }
+        // {
+        //   test: /\.node$/,
+        //   use: 'node-loader'
+        // },
+        { test: /\.(graphql|gql)$/, loader: 'graphql-tag/loader' },
+        { test: /\.png$/, loader: 'url-loader?prefix=images/&limit=8000&mimetype=image/png' },
+        { test: /\.jpg$/, loader: 'url-loader?prefix=images/&limit=8000&mimetype=image/jpeg' },
+        { test: /\.(woff|woff2)$/, loader: 'url-loader?prefix=fonts/&limit=8000&mimetype=application/font-woff' },
+        { test: /\.ttf$/, loader: 'file-loader?prefix=fonts/' },
+        { test: /\.eot$/, loader: 'file-loader?prefix=fonts/' },
+        { test: /\.svg/, loader: 'file-loader' }
       ]
     },
-    node: electronMain ? {
-      __dirname: false, // for asar
-      __filename: false
-    } : {},
+    // node: electronMain ? {
+    //   __dirname: false, // for asar
+    //   __filename: false
+    // } : {},
     output: {
       filename: electronMain ? "index.js" : "bundle.js",
       libraryTarget: "commonjs2",
@@ -84,7 +90,8 @@ module.exports = ({ platform, prod } = {}) => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        "process.env.NODE_ENV": JSON.stringify(prod ? "production" : "development")
+        "process.env.NODE_ENV": JSON.stringify(prod ? "production" : "development"),
+        "global.GENTLY": false,
       }),
       ...electronRenderer ? [
         ...prod ? [
@@ -92,8 +99,9 @@ module.exports = ({ platform, prod } = {}) => {
         ] : [
           new webpack.HotModuleReplacementPlugin(),
         ],
-        new HtmlPlugin({
-          template: "app/renderer/index.html"
+        new HtmlWebpackPlugin({
+          filename: 'index.html',
+          template: path.join(__dirname, '/app/renderer/index.html')
         }),
         new CopyPlugin([
           { from: "resources", to: "resources", ignore: [".gitkeep"] }

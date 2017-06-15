@@ -1,0 +1,8 @@
+query Viewer {
+  viewer {
+    me{
+      email
+      id
+    }
+  }
+}
