@@ -41,6 +41,7 @@ module.exports = ({ platform, prod } = {}) => {
       "source-map-support",
     ] : [],
     module: {
+      exprContextCritical: false,
       rules: [
         {
           test: /\.js($|\?)/,
@@ -88,7 +89,8 @@ module.exports = ({ platform, prod } = {}) => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        "process.env.NODE_ENV": JSON.stringify(prod ? "production" : "development")
+        "process.env.NODE_ENV": JSON.stringify(prod ? "production" : "development"),
+        "global.GENTLY": false,
       }),
       ...electronRenderer ? [
         ...prod ? [
