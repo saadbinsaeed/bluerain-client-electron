@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { ApolloProvider } from 'react-apollo';
-import { browserHistory, Router } from 'react-router';
+import { hashHistory, Router } from 'react-router';
 import { AppContainer } from "react-hot-loader";
 import 'bluerain-bootstrap-theme/dist/css/bluerain-bootstrap-theme.css';
 import 'bluerain-client-services/dist/style.css';
@@ -42,7 +42,7 @@ ReactDOM.render(
   <AppContainer>
     <ApolloProvider store={store} client={client}>
       <Router
-        history={browserHistory}
+        history={hashHistory}
         routes={rootRoute}
         onUpdate={hideLoadingBar}
       />

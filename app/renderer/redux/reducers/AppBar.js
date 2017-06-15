@@ -19,3 +19,4 @@ const AppBarReduceres = (state = initialState, action) => {
       return state;
   }
 };
+export default AppBarReduceres;
