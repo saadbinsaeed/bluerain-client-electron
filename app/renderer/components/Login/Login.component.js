@@ -83,7 +83,7 @@ class LoginComponent extends React.Component {
             <div className="row">
               <div className="col-lg-12 col-md-12 col-12">
                 <div className="form-login">
-                  <img src="Mevris Logo-01.svg" style={{margin: "auto auto 30px"}}/>
+                  <img src="../Mevris Logo-01.svg" style={{margin: "auto auto 30px"}}/>
                   <Nav tabs>
                     <NavItem>
                       <NavLink
