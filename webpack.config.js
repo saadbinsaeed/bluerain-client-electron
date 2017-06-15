@@ -24,7 +24,8 @@ module.exports = ({ platform, prod } = {}) => {
       hot: true,
       port: PORT,
       historyApiFallback: true,
-      contentBase: path.join(__dirname, "/resources/")
+      stats: 'minimal',
+      contentBase: path.join(__dirname, "/resources/"),
     },
     devtool: prod ? undefined : "inline-source-map",
     entry: electronMain ? [
@@ -38,9 +39,10 @@ module.exports = ({ platform, prod } = {}) => {
       "./app/renderer"
     ],
     externals: electronMain && !prod ? [
-      "source-map-support"
+      "source-map-support",
     ] : [],
     module: {
+      exprContextCritical: false,
       rules: [
         {
           test: /\.js($|\?)/,
@@ -63,10 +65,10 @@ module.exports = ({ platform, prod } = {}) => {
           test: /\.(css|scss)$/,
           loaders: ['style-loader', 'css-loader', 'sass-loader']
         },
-        {
-          test: /\.node$/,
-          use: 'node-loader'
-        },
+        // {
+        //   test: /\.node$/,
+        //   use: 'node-loader'
+        // },
         { test: /\.(graphql|gql)$/, loader: 'graphql-tag/loader' },
         { test: /\.png$/, loader: 'url-loader?prefix=images/&limit=8000&mimetype=image/png' },
         { test: /\.jpg$/, loader: 'url-loader?prefix=images/&limit=8000&mimetype=image/jpeg' },
@@ -76,10 +78,10 @@ module.exports = ({ platform, prod } = {}) => {
         { test: /\.svg/, loader: 'file-loader' }
       ]
     },
-    node: electronMain ? {
-      __dirname: false, // for asar
-      __filename: false
-    } : {},
+    // node: electronMain ? {
+    //   __dirname: false, // for asar
+    //   __filename: false
+    // } : {},
     output: {
       filename: electronMain ? "index.js" : "bundle.js",
       libraryTarget: "commonjs2",
@@ -88,7 +90,8 @@ module.exports = ({ platform, prod } = {}) => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        "process.env.NODE_ENV": JSON.stringify(prod ? "production" : "development")
+        "process.env.NODE_ENV": JSON.stringify(prod ? "production" : "development"),
+        "global.GENTLY": false,
       }),
       ...electronRenderer ? [
         ...prod ? [

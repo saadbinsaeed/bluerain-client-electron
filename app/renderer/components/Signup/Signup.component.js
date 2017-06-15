@@ -1,12 +1,12 @@
 /**
  * @author Muhammad Atif
  */
-import React, { PropTypes } from 'react';
-import Input from 'reactstrap/lib/Input';
-import { Link } from 'react-router';
-import 'bluerain-bootstrap-theme/dist/css/components/login.css';
+import React, { PropTypes } from "react";
+import Input from "reactstrap/lib/Input";
+import { Link } from "react-router";
+import "bluerain-bootstrap-theme/dist/css/components/login.css";
 // import { withNotifications } from 'bluerain-client-services';
-import { withNotifications } from '../Notifications/withNotifications';
+import { withNotifications } from "../Notifications/withNotifications";
 
 
 const propTypes = {
@@ -19,11 +19,11 @@ const propTypes = {
 };
 
 const defaultProps = {
-  fullName:'',
-  email: '',
-  password: '',
-  message: '',
-  phoneNumber: '',
+  fullName: "",
+  email: "",
+  password: "",
+  message: "",
+  phoneNumber: "",
   disabled: false,
 };
 class SignupComponent extends React.Component {
@@ -46,47 +46,87 @@ class SignupComponent extends React.Component {
     this.handleTermsChange = this.handleTermsChange.bind(this);
     this.validatePhoneNumber = this.validatePhoneNumber.bind(this);
   }
+  validateEmail(email) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
   validatePhoneNumber(phoneNumber) {
     const re = /^[\s()+-]*([0-9][\s()+-]*){11,11}$/;
     return re.test(phoneNumber);
   }
-  handleSubmit(event){
+  handleSubmit(event) {
     event.preventDefault();
-    const { phoneNumber, password, confirmPassword } = this.state;
+    const { phoneNumber, password, confirmPassword, fullName, email } = this.state;
     const { addNotification } = this.props.notification;
-    if(password.length < 6){
+    if (fullName === "") {
       addNotification({
-        title: 'Password',
-        message: 'Password must be 6 characters long',
-        position: 'br',
-        level: 'error'
+        title: "Missing",
+        message: "Please provide Full Name",
+        status: "error",
+        dismissible: true,
+        dismissAfter: 3000,
+        position: "br",
+        level: "error"
       });
-    }else{
-      if (password !== confirmPassword) {
-        addNotification({
-          title: 'Confirm Password',
-          message: 'Password Do not match',
-          position: 'br',
-          level: 'error'
-        });
-      }else {
-        if (phoneNumber && !this.validatePhoneNumber(phoneNumber)) {
-          addNotification({
-            title: 'Missing',
-            message: 'Invalid Phone Number',
-            position: 'br',
-            level: 'error'
-          });
-        }else{
-          this.props.onSubmit(this.state);
-        }
-      }
+    } else if (email === "") {
+      addNotification({
+        title: "Missing",
+        message: "Please provide Email",
+        status: "error",
+        dismissible: true,
+        dismissAfter: 3000,
+        position: "br",
+        level: "error"
+      });
+    } else if (!this.validateEmail(email)) {
+      addNotification({
+        title: "Email",
+        message: "Invalid Email. Please provide valid email",
+        status: "error",
+        dismissible: true,
+        dismissAfter: 6000,
+        position: "br",
+        level: "error"
+      });
+    } else if (password.length < 6) {
+      addNotification({
+        title: "Password",
+        message: "Password must be 6 characters long",
+        position: "br",
+        level: "error"
+      });
+    } else if (password !== confirmPassword) {
+      addNotification({
+        title: "Confirm Password",
+        message: "Password Do not match",
+        position: "br",
+        level: "error"
+      });
+    } else if (phoneNumber && !this.validatePhoneNumber(phoneNumber)) {
+      addNotification({
+        title: "Phone Number",
+        message: "Invalid Phone Number",
+        position: "br",
+        level: "error"
+      });
+    } else if (this.state.termsAndConditions === false) {
+      addNotification({
+        title: "Missing",
+        message: "You must agree to terms and conditions of MEVRIS home in order to continue the registration process.",
+        status: "error",
+        dismissible: true,
+        dismissAfter: 3000,
+        position: "br",
+        level: "error"
+      });
+    } else {
+      this.props.onSubmit(this.state);
     }
-    }
-  handleFullNameChange(event){
+  }
+  handleFullNameChange(event) {
     this.setState({
       fullName: event.target.value,
-    })
+    });
   }
   handleEmailChange(event) {
     this.setState({
@@ -116,18 +156,18 @@ class SignupComponent extends React.Component {
   }
   render() {
     const style = {
-      verticalAlign : 'middle',
+      verticalAlign: "middle",
       padding: {
         padding: 5
       }
     };
     const marginBottom = {
-      marginBottom: '5px'
-    }
+      marginBottom: "5px"
+    };
     const { message, disabled } = this.props;
     return (
-      <div style={{width:280,padding:20}}>
-        <form onSubmit={this.handleSubmit}>
+      <div style={{ width: 280, padding: 20 }}>
+        <form>
           <input
             type="text"
             className="form-control"
@@ -136,40 +176,35 @@ class SignupComponent extends React.Component {
             autoFocus
             onChange={this.handleFullNameChange}
             value={this.state.fullName}
-            style={marginBottom}
-          />
+            style={marginBottom} />
           <input
             type="email"
             className="form-control"
             placeholder="Email"
             required
             onChange={this.handleEmailChange}
-            style={marginBottom}
-          />
+            style={marginBottom} />
           <input
             type="password"
             className="form-control"
             placeholder="Password"
             required
             onChange={this.handlePasswordChange}
-            style={marginBottom}
-          />
+            style={marginBottom} />
           <input
             type="password"
             className="form-control"
             placeholder="Confirm Password"
             required
             onChange={this.handlePasswordConfirm}
-            style={marginBottom}
-          />
+            style={marginBottom} />
           <input
             type="text"
             className="form-control"
             placeholder="Mobile Number"
             value={this.state.phoneNumber}
             onChange={this.handlePhoneNumChange}
-            style={marginBottom}
-          />
+            style={marginBottom} />
           <div>
             <span>
               <Input
@@ -179,8 +214,7 @@ class SignupComponent extends React.Component {
                 checked={this.state.termsAndConditions}
                 style={style}
                 required
-                onChange={this.handleTermsChange}
-              />
+                onChange={this.handleTermsChange} />
             </span>
             <span style={style.padding}><Link to="/terms" target="_blank">I agree to MEVRIS home software and services agreement!</Link></span>
           </div>
@@ -188,8 +222,8 @@ class SignupComponent extends React.Component {
           <button
             className="btn btn-lg btn-primary btn-block"
             type="submit"
-            disabled={disabled}
-          >{message}
+            onClick={this.handleSubmit}
+            disabled={disabled}>{message}
           </button>
         </form>
       </div>
