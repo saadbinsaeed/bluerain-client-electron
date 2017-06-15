@@ -24,7 +24,7 @@ module.exports = ({ platform, prod } = {}) => {
       hot: true,
       port: PORT,
       historyApiFallback: true,
-      stats: 'minimal',
+      stats: 'errors-only',
       contentBase: path.join(__dirname, "/resources/"),
     },
     devtool: prod ? undefined : "inline-source-map",
