@@ -22,7 +22,9 @@ module.exports = ({ platform, prod } = {}) => {
   return {
     devServer: {
       hot: true,
-      port: PORT
+      port: PORT,
+      historyApiFallback: true,
+      contentBase: path.join(__dirname, "/resources/")
     },
     devtool: prod ? undefined : "inline-source-map",
     entry: electronMain ? [
@@ -98,9 +100,6 @@ module.exports = ({ platform, prod } = {}) => {
           filename: 'index.html',
           template: path.join(__dirname, '/app/renderer/index.html')
         }),
-        // new HtmlPlugin({
-        //   template: "app/renderer/index.html"
-        // }),
         new CopyPlugin([
           { from: "resources", to: "resources", ignore: [".gitkeep"] }
         ])
