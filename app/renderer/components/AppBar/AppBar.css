@@ -1,0 +1,19 @@
+.nav-toggle
+{
+  padding: 10px;
+  background-color: #737373;
+}
+.nav-bar{
+  background-color: #262626;
+}
+.nav-dropDrown{
+  margin-left: 20%;
+}
+.nav-search{
+  background-color: rgba(0,0,0,0.2) !important;
+  height: 30px;
+  color: white !important;
+}
+.nav-search-align{
+  margin:0 30% 0 49%;
+}
