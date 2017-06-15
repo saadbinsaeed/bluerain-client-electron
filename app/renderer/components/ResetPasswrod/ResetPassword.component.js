@@ -2,7 +2,7 @@
  * Created by Haris on 3/29/17.
  */
 import React, { PropTypes } from 'react';
-import  { browserHistory, Link } from 'react-router';
+import  { hashHistory, Link } from 'react-router';
 import 'bluerain-bootstrap-theme/dist/css/components/login.css';
 import 'bluerain-bootstrap-theme/dist/css/layouts/flexbox-layout.css';
 import 'bluerain-bootstrap-theme/dist/css/layouts/absolute-center-layout.css';

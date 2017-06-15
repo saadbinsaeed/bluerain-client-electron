@@ -41,7 +41,7 @@ class SystemNavComponent extends React.Component {
           <DropdownMenu className="system-dropdown-menu" aria-labelledby="supportedContentDropdown">
             {/* <DropdownItem tag="a" href="#">My profile</DropdownItem>
             <div className="dropdown-divider" />*/}
-            <DropdownItem tag="a" href="/logout">Log out</DropdownItem>
+            <DropdownItem tag="a" href="#/logout">Log out</DropdownItem>
           </DropdownMenu>
         </Dropdown>
       );

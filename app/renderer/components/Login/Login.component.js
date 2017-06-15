@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import  { browserHistory, Link } from 'react-router';
+import  { hashHistory, Link } from 'react-router';
 
 import 'bluerain-bootstrap-theme/dist/css/components/login.css';
 import 'bluerain-bootstrap-theme/dist/css/layouts/flexbox-layout.css';
