@@ -1,10 +1,10 @@
 {
-  "name": "electron-react-webpack-boilerplate",
-  "version": "1.0.0",
-  "description": "Electron + webpack + Babel + React",
+  "name": "Bluerain-Client-Electron",
+  "version": "3.0.0",
+  "description": "IOT Platform",
   "main": "build",
   "electron": {
-    "name": "ElectronReactWebpackBoilerplate"
+    "name": "BluerainClientElectron"
   },
   "scripts": {
     "start": "run-s dev",
