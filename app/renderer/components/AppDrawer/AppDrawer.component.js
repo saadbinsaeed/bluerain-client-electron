@@ -8,7 +8,7 @@ import { Link } from 'react-router';
 import includes from 'lodash/includes';
 import lowerCase from 'lodash/lowerCase';
 import filter from 'lodash/filter';
-import { showFlashBanner, socketConnected, withSocket } from 'bluerain-client-services';
+import { showFlashBanner } from 'bluerain-client-services';
 import store from '../../redux/store';
 import apps from '../../server/appLoader';
 import './AppDrawer.css';
@@ -198,7 +198,7 @@ class AppDrawer extends React.Component {
     return appsArray.map(app => {
       return (
         <div className="app-drawer-icon" key={app.name}>
-          <Link to={ this.props.isConnected ? `app/${app.routes.path}` : null } >
+          <Link to={`app/${app.routes.path}`} >
             <IconComponent
               name={app.icons.name}
               shadow={'20px'}
@@ -255,4 +255,4 @@ class AppDrawer extends React.Component {
 AppDrawer.propTypes = propTypes;
 AppDrawer.defautProps = defaultProps;
 
-export default withSocket(AppDrawer);
+export default AppDrawer;

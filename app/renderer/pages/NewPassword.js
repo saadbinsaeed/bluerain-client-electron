@@ -75,7 +75,7 @@ class NewPassword extends React.Component {
       .then((result) => {
         // console.log('Mutattion result : ', result);
         addNotification({
-          title: 'Missing',
+          title: 'Congrats',
           message: 'Your password have been changed',
           position: 'br',
           level: 'success'
@@ -87,8 +87,8 @@ class NewPassword extends React.Component {
       .catch((e) => {
         // console.log('Mutattion Error : ', e)
         addNotification({
-          title: 'Missing',
-          message: 'Oopsss.. there is an error, please try again',
+          title: 'Oopsss..',
+          message: 'there is an error, please try again',
           position: 'br',
           level: 'error'
         });
