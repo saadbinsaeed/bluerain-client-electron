@@ -6,6 +6,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
 const BabiliPlugin = require("babili-webpack-plugin");
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 const PORT = 3000;
 
@@ -89,6 +90,7 @@ module.exports = ({ platform, prod } = {}) => {
       publicPath: electronRenderer && !prod ? `http://localhost:${PORT}/build/` : undefined
     },
     plugins: [
+      new ProgressBarPlugin(),
       new webpack.DefinePlugin({
         "process.env.NODE_ENV": JSON.stringify(prod ? "production" : "development"),
         "global.GENTLY": false,
