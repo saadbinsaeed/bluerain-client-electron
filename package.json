@@ -18,10 +18,11 @@
     "start-dev": "cross-env BABEL_ENV=electron NODE_ENV=development electron -r babel-register app/main",
     "dev": "run-p dev-server start-dev",
     "dev-server": "webpack-dev-server",
-    "build": "run-p build-main build-renderer",
+    "build": "run-p remove build-main build-renderer",
+    "remove": "rimraf build && rimraf dist",
     "build-main": "cross-env BABEL_ENV=electron-build webpack --env.platform=electron --env.prod",
     "build-renderer": "cross-env BABEL_ENV=build webpack --env.prod",
-    "package": "node tasks/package",
+    "package": "cross-env DEBUG_PROD=true npm run build && node tasks/package",
     "package-all": "run-s package -- --all"
   },
   "repository": {
@@ -77,6 +78,7 @@
     "postcss-smart-import": "^0.6.12",
     "progress-bar-webpack-plugin": "^1.9.3",
     "react-test-renderer": "^15.5.4",
+    "rimraf": "^2.6.1",
     "sass-loader": "^6.0.5",
     "sinon": "^2.2.0",
     "source-map-support": "^0.4.15",

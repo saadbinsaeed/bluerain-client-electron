@@ -66,10 +66,10 @@ module.exports = ({ platform, prod } = {}) => {
           test: /\.(css|scss)$/,
           loaders: ['style-loader', 'css-loader', 'sass-loader']
         },
-        // {
-        //   test: /\.node$/,
-        //   use: 'node-loader'
-        // },
+        {
+          test: /\.node$/,
+          use: 'node-loader'
+        },
         { test: /\.(graphql|gql)$/, loader: 'graphql-tag/loader' },
         { test: /\.png$/, loader: 'url-loader?prefix=images/&limit=8000&mimetype=image/png' },
         { test: /\.jpg$/, loader: 'url-loader?prefix=images/&limit=8000&mimetype=image/jpeg' },
@@ -87,13 +87,14 @@ module.exports = ({ platform, prod } = {}) => {
       filename: electronMain ? "index.js" : "bundle.js",
       libraryTarget: "commonjs2",
       path: path.resolve(__dirname, "build"),
-      publicPath: electronRenderer && !prod ? `http://localhost:${PORT}/build/` : undefined
+      publicPath: electronRenderer && !prod ? `http://localhost:${PORT}/build/` : undefined,
     },
     plugins: [
       new ProgressBarPlugin(),
       new webpack.DefinePlugin({
         "process.env.NODE_ENV": JSON.stringify(prod ? "production" : "development"),
         "global.GENTLY": false,
+        'process.env.DEBUG_PROD': JSON.stringify(process.env.DEBUG_PROD || 'false'),
       }),
       ...electronRenderer ? [
         ...prod ? [
