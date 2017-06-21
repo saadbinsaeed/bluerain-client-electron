@@ -103,7 +103,7 @@ export default class MenuBuilder {
       ]
     };
 
-    const subMenuView = process.env.NODE_ENV === 'development'
+    const subMenuView = process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true'
       ? subMenuViewDev
       : subMenuViewProd;
 
@@ -131,7 +131,7 @@ export default class MenuBuilder {
       }]
     }, {
       label: '&View',
-      submenu: (process.env.NODE_ENV === 'development') ? [{
+      submenu: (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') ? [{
         label: '&Reload',
         accelerator: 'Ctrl+R',
         click: () => {
