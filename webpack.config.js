@@ -79,10 +79,10 @@ module.exports = ({ platform, prod } = {}) => {
         { test: /\.svg/, loader: 'file-loader' }
       ]
     },
-    // node: electronMain ? {
-    //   __dirname: false, // for asar
-    //   __filename: false
-    // } : {},
+    node: electronMain ? {
+      __dirname: false, // for asar
+      __filename: false
+    } : {},
     output: {
       filename: electronMain ? "index.js" : "bundle.js",
       libraryTarget: "commonjs2",
