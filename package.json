@@ -94,7 +94,7 @@
   "dependencies": {
     "apollo-client": "1.0.4",
     "axios": "^0.16.2",
-    "bluerain-app-device-explorer": "git+ssh://git@bitbucket.org:be-iot-platform/bluerain-app-device-explorer-2.git#develop",
+    "bluerain-app-device-explorer": "git+ssh://git@bitbucket.org:be-iot-platform/bluerain-app-device-explorer-2.git#electron",
     "bluerain-client-services": "git+ssh://git@bitbucket.org/be-iot-platform/bluerain-client-services.git#develop",
     "bluerain-ui": "git+ssh://git@bitbucket.org/be-iot-platform/bluerain-ui.git#develop",
     "graphql": "^0.10.1",

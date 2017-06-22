@@ -6,13 +6,13 @@
 
 // console.log('found apps', req.keys());
 
-// let deviceExplorar = require('bluerain-app-device-explorer');
+let deviceExplorar = require('bluerain-app-device-explorer');
 // let helloWorldApp = require('bluerain-app-hello-world');
 // let flowApp = require('bluerain-app-flows');
 
-// if (deviceExplorar.default) {
-//   deviceExplorar = deviceExplorar.default;
-// }
+if (deviceExplorar.default) {
+  deviceExplorar = deviceExplorar.default;
+}
 // if (helloWorldApp.default) {
 //   helloWorldApp = helloWorldApp.default;
 // }
@@ -21,7 +21,7 @@
 // }
 
 const apps = [
-  // deviceExplorar,
+  deviceExplorar,
   // helloWorldApp
 ];
 
