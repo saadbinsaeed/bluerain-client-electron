@@ -107,7 +107,7 @@ module.exports = ({ platform, prod } = {}) => {
           template: path.join(__dirname, '/app/renderer/index.html')
         }),
         new CopyPlugin([
-          { from: "resources", to: "resources", ignore: [".gitkeep"] }
+          { from: "resources", ignore: [".gitkeep"] }
         ])
       ] : [
         ...prod ? [] : [
