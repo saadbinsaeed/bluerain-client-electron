@@ -116,7 +116,7 @@ class LoginComponent extends React.Component {
       marginBottom: "5px"
     };
     return (
-      <div className="flexbox-layout login">
+      <div className="flexbox-layout login" style={{backgroundImage: 'url("slide-1.jpg")'}}>
         <div className="absolute-center-layout">
           <div className="container login-xs">
             <div className="row">
