@@ -9,7 +9,7 @@ const IndexPage = () => ({
   render() {
     // console.log('Props in index page is : ', this.props);
     const background = {
-      background: 'url(/app-drawer-background.jpg) top right no-repeat fixed',
+      background: 'url(app-drawer-background.jpg) top right no-repeat fixed',
       height: '500vh',
     };
     return (
