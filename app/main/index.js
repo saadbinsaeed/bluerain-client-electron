@@ -1,6 +1,6 @@
 import { app, BrowserWindow } from "electron";
 import MenuBuilder from './menu';
-
+const path = require('path');
 const PORT = 3000;
 
 let win;
@@ -19,7 +19,9 @@ const installExtensions = async () => {
 };
 
 app.on("ready", async () => {
+  const iconPath = path.join(__dirname, 'resources', 'logo.svg');
   win = new BrowserWindow({
+    icon: iconPath,
     show: false,
     width: 1024,
     height: 728
