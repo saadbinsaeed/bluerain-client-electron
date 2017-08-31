@@ -22,7 +22,9 @@
     "remove": "rimraf build && rimraf dist",
     "build-main": "cross-env BABEL_ENV=electron-build webpack --env.platform=electron --env.prod",
     "build-renderer": "cross-env BABEL_ENV=build webpack --env.prod",
-    "package": "cross-env DEBUG_PROD=true npm run build && node tasks/package",
+    "package": "cross-env DEBUG_PROD=false npm run build && node tasks/package",
+    "package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=x64 --prune=true --out=windows-build",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=mac-build",
     "package-all": "run-s package -- --all"
   },
   "repository": {
@@ -49,6 +51,7 @@
     "babel-preset-react-optimize": "^1.0.1",
     "babel-register": "^6.24.1",
     "babili-webpack-plugin": "^0.0.11",
+    "compression-webpack-plugin": "^0.4.0",
     "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^4.0.0",
     "css-loader": "^0.28.4",
